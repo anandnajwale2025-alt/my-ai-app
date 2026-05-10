@@ -18,7 +18,7 @@ app = FastAPI(title="Summarizer API", version="1.0")
 # Request and response models
 class SummaryRequest(BaseModel):
     text: str
-    max_length: Optional[int] = 152
+    max_length: Optional[int] = 153
 
 class SummaryResponse(BaseModel):
     summary: str
