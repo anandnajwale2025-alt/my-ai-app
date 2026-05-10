@@ -1,0 +1,20 @@
+[project]
+name = "fastapi-all-methods"
+version = "0.1.0"
+description = "A complete REST API example demonstrating all HTTP methods using FastAPI"
+authors = [
+    { name = "User", email = "user@example.com" }
+]
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+    "pydantic>=2.7.0",
+]
+requires-python = ">=3.9"
+
+[tool.uv]
+package = false
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
