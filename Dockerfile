@@ -1,16 +1,15 @@
-# Simple Dockerfile for GenAI App
-# Build: docker build -f Dockerfile.genai -t genai-app .
-# Run: docker run -p 8080:8080 --env-file .env genai-app
-
 FROM python:3.11-slim
 
 WORKDIR /app
 
 COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY genai_app.py .
+COPY . .
+
+ENV PORT=8080
 
 EXPOSE 8080
 
-CMD ["uvicorn", "genai_app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT}"]
