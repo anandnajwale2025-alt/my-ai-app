@@ -23,7 +23,8 @@ def get_gemini_api_key():
         # Fallback to environment variable
         return os.getenv("GEMINI_API_KEY")
 
-GEMINI_API_KEY = get_gemini_api_key()
+#GEMINI_API_KEY = get_gemini_api_key()
+GEMINI_API_KEY = "AIzaSyBEhAeUTpTCEhJurt0TDx4s1ZUBtCi3mOc"
 
 # Initialize the Gemini client
 client = genai.Client(api_key=GEMINI_API_KEY)
