@@ -1,3 +1,4 @@
+
 import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -7,7 +8,22 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+def get_gemini_api_key():
+    # Try to read from Google Cloud Secret Manager if available
+    try:
+        import google.auth
+        from google.cloud import secretmanager
+        _, project_id = google.auth.default()
+        client = secretmanager.SecretManagerServiceClient()
+        secret_name = os.getenv("GEMINI_SECRET_NAME", "gemini-api-key")
+        name = f"projects/{project_id}/secrets/{secret_name}/versions/latest"
+        response = client.access_secret_version(request={"name": name})
+        return response.payload.data.decode("UTF-8")
+    except Exception:
+        # Fallback to environment variable
+        return os.getenv("GEMINI_API_KEY")
+
+GEMINI_API_KEY = get_gemini_api_key()
 
 # Initialize the Gemini client
 client = genai.Client(api_key=GEMINI_API_KEY)
